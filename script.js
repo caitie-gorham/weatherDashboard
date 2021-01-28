@@ -1,5 +1,12 @@
 $(document).ready(function() {
     
+    // get array stored in local storage
+    var historyList = JSON.parse(window.localStorage.getItem("historyList")) || [];
+    // and create a list using the values
+    for (i=0; i<historyList.length; i++) {
+        $(".history-group").append('<a href="#" class="list-group-item list-group-item-action history">' + historyList[i] + '</a>');
+    }
+    
     const historyInput = $(".history").val()
     // const queryURLCurrentHist = "http://api.openweathermap.org/data/2.5/weather?q=" + historyInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial"
 
@@ -72,28 +79,21 @@ $(document).ready(function() {
             $("#temperature").text("Temperature: " + searchTemp + " °F");
             $("#humidity").text("Humidity: " + searchHumidity + "%");
             $("#wind-speed").text("Wind Speed: " + searchSpeed + "MPH");
-            localStorage.setItem("cityName", cityInput) 
-            $(".history-group").append('<button type="button" class="history list-group-item"></button>').attr("id", cityInput)
-            
         })
     })
-    
-    // button from history on click event  
-    // $(".history").on("click", function(){
-    //     $.ajax({
-    //         url: queryURLCurrentHist,
-    //         method: "GET"
-    //     }).then(function(response){
-    //         const searchName = response.name;
-    //         const searchTemp = response.main.temp;
-    //         const searchHumidity = response.main.humidity;
-    //         const searchSpeed = response.wind.speed;
-    //         $("#city-date").text(searchName);
-    //         $("#temperature").text("Temperature: " + searchTemp + " °F");
-    //         $("#humidity").text("Humidity: " + searchHumidity + "%");
-    //         $("#wind-speed").text("Wind Speed: " + searchSpeed + "MPH");
-    //     });
-    // });
+
+    $("#searchBtn").on("click", function(){
+        let cityInput = $("#city-input").val();
+        if (historyList.indexOf(cityInput)=== -1) {
+            historyList.push(cityInput);
+            window.localStorage.setItem("historyList", JSON.stringify(historyList));
+        }
+    })
+
+    // create a click event for each item in the list that fills in the search input
+    $(".history").on("click", function(){
+        $("#city-input").val($(this).text())
+    });
 
 })
 
