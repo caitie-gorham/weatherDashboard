@@ -12,7 +12,8 @@ $(document).ready(function() {
         }).then(function(response){
             // get one day from now
             let dtText1 = response.list[0].dt_txt;
-            $("#date-input-1").text(dtText1)
+            let dtText1Loc = new Date(dtText1).toLocaleDateString()
+            $("#date-input-1").text(dtText1Loc)
             let tempInput1 = response.list[0].main.temp
             $("#temp-input-1").text("Temperature: " + tempInput1 + " °F")
             let humInput1 = response.list[0].main.humidity
@@ -20,7 +21,8 @@ $(document).ready(function() {
             
             // get two days from now
             let dtText2 = response.list[7].dt_txt;
-            $("#date-input-2").text(dtText2)
+            let dtText2Loc = new Date(dtText2).toLocaleDateString();
+            $("#date-input-2").text(dtText2Loc)
             let tempInput2 = response.list[7].main.temp
             $("#temp-input-2").text("Temperature: " + tempInput2 + " °F")
             let humInput2 = response.list[7].main.humidity
@@ -28,7 +30,8 @@ $(document).ready(function() {
 
             // get three days from now
             let dtText3 = response.list[15].dt_txt;
-            $("#date-input-3").text(dtText3)
+            let dtText3Loc = new Date(dtText3).toLocaleDateString()
+            $("#date-input-3").text(dtText3Loc)
             let tempInput3 = response.list[15].main.temp
             $("#temp-input-3").text("Temperature: " + tempInput3 + " °F")
             let humInput3 = response.list[15].main.humidity
@@ -36,7 +39,8 @@ $(document).ready(function() {
             
             // get four days from now
             let dtText4 = response.list[23].dt_txt;
-            $("#date-input-4").text(dtText4)
+            let dtText4Loc = new Date(dtText4).toLocaleDateString();
+            $("#date-input-4").text(dtText4Loc)
             let tempInput4 = response.list[23].main.temp
             $("#temp-input-4").text("Temperature: " + tempInput4 + " °F")
             let humInput4 = response.list[23].main.humidity
@@ -44,7 +48,8 @@ $(document).ready(function() {
             
             // get five days from now
             let dtText5 = response.list[31].dt_txt;
-            $("#date-input-5").text(dtText5)
+            let dtText5Loc = new Date(dtText5).toLocaleDateString()
+            $("#date-input-5").text(dtText5Loc)
             let tempInput5 = response.list[31].main.temp
             $("#temp-input-5").text("Temperature: " + tempInput5 + " °F")
             let humInput5 = response.list[31].main.humidity
@@ -52,7 +57,6 @@ $(document).ready(function() {
         })
     })
     
-
     $("#searchBtn").on("click", function(e){
         e.preventDefault()
         let cityInput = $("#city-input").val()
@@ -69,6 +73,8 @@ $(document).ready(function() {
             $("#humidity").text("Humidity: " + searchHumidity + "%");
             $("#wind-speed").text("Wind Speed: " + searchSpeed + "MPH");
             localStorage.setItem("cityName", cityInput) 
+            $(".history-group").append('<button type="button" class="history list-group-item"></button>').attr("id", cityInput)
+            
         })
     })
     
