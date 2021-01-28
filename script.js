@@ -6,10 +6,8 @@ $(document).ready(function() {
     for (i=0; i<historyList.length; i++) {
         $(".history-group").append('<a href="#" class="list-group-item list-group-item-action history">' + historyList[i] + '</a>');
     }
-    
-    const historyInput = $(".history").val()
-    // const queryURLCurrentHist = "http://api.openweathermap.org/data/2.5/weather?q=" + historyInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial"
 
+    // click event that generates the five day forecast for searched city
     $("#searchBtn").on("click", function(e){
         e.preventDefault();
         let cityInput = $("#city-input").val()
@@ -63,7 +61,8 @@ $(document).ready(function() {
             $("#humidity-input-5").text("Humidity: " + humInput5 + "%")
         })
     })
-    
+
+    // click event that generates the current weather for searched city
     $("#searchBtn").on("click", function(e){
         e.preventDefault()
         let cityInput = $("#city-input").val()
@@ -71,11 +70,14 @@ $(document).ready(function() {
             url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
             method: "GET"
         }).then(function(response){
+            console.log(response)
             let searchName = response.name;
             let searchTemp = response.main.temp;
             let searchHumidity = response.main.humidity;
             let searchSpeed = response.wind.speed;
-            $("#city-date").text(searchName);
+            let localTime = luxon.DateTime.local();
+            let formatTime = localTime.toLocaleString(luxon.DateTime.DATE_SHORT);
+            $("#city-date").text(searchName + " (" + formatTime + ")");
             $("#temperature").text("Temperature: " + searchTemp + " °F");
             $("#humidity").text("Humidity: " + searchHumidity + "%");
             $("#wind-speed").text("Wind Speed: " + searchSpeed + "MPH");
