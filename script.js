@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     // get array stored in local storage
     var historyList = JSON.parse(window.localStorage.getItem("historyList")) || [];
+   
     // and create a list using the values
     for (i = 0; i < historyList.length; i++) {
         $(".history-group").append('<a href="#" class="list-group-item list-group-item-action history">' + historyList[i] + '</a>');
@@ -10,12 +11,16 @@ $(document).ready(function () {
     // click event that generates the five day forecast for searched city
     $("#searchBtn").on("click", function (e) {
         e.preventDefault();
+        $("#five-day-cards1").empty()
+        $("#five-day-cards2").empty()
+        $("#five-day-cards3").empty()
+        $("#five-day-cards4").empty()
+        $("#five-day-cards5").empty()
         let cityInput = $("#city-input").val()
         $.ajax({
             url: "http://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
             method: "GET"
         }).then(function (response) {
-
             // get one day from now
             let card1 = $("<div>").attr("class", "card")
             let input1 = $("<div>").attr("class", "card-body five-day")
@@ -106,12 +111,13 @@ $(document).ready(function () {
     // click event that generates the current weather for searched city
     $("#searchBtn").on("click", function (e) {
         e.preventDefault()
+
         let cityInput = $("#city-input").val()
+        $("#city-input").val("")
         $.ajax({
             url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
             method: "GET"
         }).then(function (response) {
-            console.log(response)
             let searchName = response.name;
             let searchTemp = response.main.temp;
             let searchHumidity = response.main.humidity;
@@ -120,8 +126,8 @@ $(document).ready(function () {
             let formatTime = localTime.toLocaleString(luxon.DateTime.DATE_SHORT);
             let weatherIconCurrent = response.weather[0].icon
             iconURLCurrent = "http://openweathermap.org/img/w/" + weatherIconCurrent + ".png"
-            var imgCurrent = $("<img>").attr("src", iconURLCurrent);
-            $("#current-cont").prepend(imgCurrent)
+            let imgCurrent = $("<img>").attr("src", iconURLCurrent);
+            $("#current-icon").html(imgCurrent)
             $("#city-date").text(searchName + " (" + formatTime + ")");
             $("#temperature").text("Temperature: " + searchTemp + " °F");
             $("#humidity").text("Humidity: " + searchHumidity + "%");
@@ -130,6 +136,7 @@ $(document).ready(function () {
         })
     })
 
+    // click event that stores each search city to local storage
     $("#searchBtn").on("click", function () {
         let cityInput = $("#city-input").val();
         if (historyList.indexOf(cityInput) === -1) {
@@ -143,7 +150,9 @@ $(document).ready(function () {
         $("#city-input").val($(this).text())
     });
 
+    // function for ajax call to get UV index; has to be separate because UV index is only available on a different API call than above two sections
     function uvCall(lat, long) {
+        $("#uv-index").empty()
         $.ajax({
             url: "http://api.openweathermap.org/data/2.5/uvi?appid=8755afb2d2e1bf2924f3c5f7af0776c4&lat=" + lat + "&lon=" + long,
             method: "GET"
@@ -159,7 +168,7 @@ $(document).ready(function () {
             else {
                 toggle.addClass("btn-danger");
             }
-            $("#current-cont").append(uvValue.append(toggle))
+            $("#uv-index").append(uvValue.append(toggle))
         })
     }
 
