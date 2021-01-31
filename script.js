@@ -8,6 +8,15 @@ $(document).ready(function () {
         $(".history-group").append('<a href="#" class="list-group-item list-group-item-action history">' + historyList[i] + '</a>');
     }
 
+    // click event that stores each search city to local storage
+    $("#searchBtn").on("click", function () {
+        let cityInput = $("#city-input").val();
+        if (historyList.indexOf(cityInput) === -1) {
+            historyList.push(cityInput);
+            window.localStorage.setItem("historyList", JSON.stringify(historyList));
+        }
+    })
+
     // click event that generates the five day forecast for searched city
     $("#searchBtn").on("click", function (e) {
         e.preventDefault();
@@ -134,15 +143,6 @@ $(document).ready(function () {
             $("#wind-speed").text("Wind Speed: " + searchSpeed + "MPH");
             uvCall(response.coord.lat, response.coord.lon)
         })
-    })
-
-    // click event that stores each search city to local storage
-    $("#searchBtn").on("click", function () {
-        let cityInput = $("#city-input").val();
-        if (historyList.indexOf(cityInput) === -1) {
-            historyList.push(cityInput);
-            window.localStorage.setItem("historyList", JSON.stringify(historyList));
-        }
     })
 
     // create a click event for each item in the list that fills in the search input
