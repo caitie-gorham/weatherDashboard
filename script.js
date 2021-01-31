@@ -18,7 +18,7 @@ $(document).ready(function () {
         $("#five-day-cards5").empty()
         let cityInput = $("#city-input").val()
         $.ajax({
-            url: "http://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
             method: "GET"
         }).then(function (response) {
             // get one day from now
@@ -28,7 +28,7 @@ $(document).ready(function () {
             let dateDiv = $("<h5>").attr("class", "card-title")
             dateDiv.text(dtText1)
             let iconInput1 = response.list[0].weather[0].icon
-            let iconURL1 = "http://openweathermap.org/img/w/" + iconInput1 + ".png"
+            let iconURL1 = "https://openweathermap.org/img/w/" + iconInput1 + ".png"
             var img = $("<img>").attr("src", iconURL1);
             let tempDiv = $("<p>").attr("class", "card-text")
             tempDiv.append("Temperature: " + response.list[0].main.temp + " °F")
@@ -45,7 +45,7 @@ $(document).ready(function () {
             let dateDiv2 = $("<h5>").attr("class", "card-title")
             dateDiv2.text(dtText2)
             let iconInput2 = response.list[7].weather[0].icon
-            let iconURL2 = "http://openweathermap.org/img/w/" + iconInput2 + ".png"
+            let iconURL2 = "https://openweathermap.org/img/w/" + iconInput2 + ".png"
             var img2 = $("<img>").attr("src", iconURL2);
             let tempDiv2 = $("<p>").attr("class", "card-text")
             tempDiv2.append("Temperature: " + response.list[7].main.temp + " °F")
@@ -62,7 +62,7 @@ $(document).ready(function () {
             let dateDiv3 = $("<h5>").attr("class", "card-title")
             dateDiv3.text(dtText3)
             let iconInput3 = response.list[15].weather[0].icon
-            let iconURL3 = "http://openweathermap.org/img/w/" + iconInput3 + ".png"
+            let iconURL3 = "https://openweathermap.org/img/w/" + iconInput3 + ".png"
             var img3 = $("<img>").attr("src", iconURL3);
             let tempDiv3 = $("<p>").attr("class", "card-text")
             tempDiv3.append("Temperature: " + response.list[15].main.temp + " °F")
@@ -79,7 +79,7 @@ $(document).ready(function () {
             let dateDiv4 = $("<h5>").attr("class", "card-title")
             dateDiv4.text(dtText4)
             let iconInput4 = response.list[23].weather[0].icon
-            let iconURL4 = "http://openweathermap.org/img/w/" + iconInput4 + ".png"
+            let iconURL4 = "https://openweathermap.org/img/w/" + iconInput4 + ".png"
             var img4 = $("<img>").attr("src", iconURL4);
             let tempDiv4 = $("<p>").attr("class", "card-text")
             tempDiv4.append("Temperature: " + response.list[23].main.temp + " °F")
@@ -96,7 +96,7 @@ $(document).ready(function () {
             let dateDiv5 = $("<h5>").attr("class", "card-title")
             dateDiv5.text(dtText5)
             let iconInput5 = response.list[31].weather[0].icon
-            let iconURL5 = "http://openweathermap.org/img/w/" + iconInput5 + ".png"
+            let iconURL5 = "https://openweathermap.org/img/w/" + iconInput5 + ".png"
             var img5 = $("<img>").attr("src", iconURL5);
             let tempDiv5 = $("<p>").attr("class", "card-text")
             tempDiv5.append("Temperature: " + response.list[31].main.temp + " °F")
@@ -115,7 +115,7 @@ $(document).ready(function () {
         let cityInput = $("#city-input").val()
         $("#city-input").val("")
         $.ajax({
-            url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
+            url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
             method: "GET"
         }).then(function (response) {
             let searchName = response.name;
@@ -125,7 +125,7 @@ $(document).ready(function () {
             let localTime = luxon.DateTime.local();
             let formatTime = localTime.toLocaleString(luxon.DateTime.DATE_SHORT);
             let weatherIconCurrent = response.weather[0].icon
-            iconURLCurrent = "http://openweathermap.org/img/w/" + weatherIconCurrent + ".png"
+            iconURLCurrent = "https://openweathermap.org/img/w/" + weatherIconCurrent + ".png"
             let imgCurrent = $("<img>").attr("src", iconURLCurrent);
             $("#current-icon").html(imgCurrent)
             $("#city-date").text(searchName + " (" + formatTime + ")");
@@ -154,7 +154,7 @@ $(document).ready(function () {
     function uvCall(lat, long) {
         $("#uv-index").empty()
         $.ajax({
-            url: "http://api.openweathermap.org/data/2.5/uvi?appid=8755afb2d2e1bf2924f3c5f7af0776c4&lat=" + lat + "&lon=" + long,
+            url: "https://api.openweathermap.org/data/2.5/uvi?appid=8755afb2d2e1bf2924f3c5f7af0776c4&lat=" + lat + "&lon=" + long,
             method: "GET"
         }).then(function (response) {
             let uvValue = $("<p>").text("UV: ");
