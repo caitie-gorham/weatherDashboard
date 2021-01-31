@@ -15,71 +15,91 @@ $(document).ready(function () {
             url: "http://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&appid=8755afb2d2e1bf2924f3c5f7af0776c4&units=imperial",
             method: "GET"
         }).then(function (response) {
-            // get one day from now
-            console.log(response)
-            let dtText1 = response.list[0].dt_txt;
-            let dtText1Loc = new Date(dtText1).toLocaleDateString()
-            $("#date-input-1").text(dtText1Loc)
-            let iconInput1 = response.list[0].weather[0].icon
-            iconURL1 = "http://openweathermap.org/img/w/" + iconInput1 + ".png"
-            var img = $("<img>").attr("src", iconURL1);
-            $("#card-1").append(img)
-            let tempInput1 = response.list[0].main.temp
-            $("#temp-input-1").text("Temperature: " + tempInput1 + " °F")
-            let humInput1 = response.list[0].main.humidity
-            $("#humidity-input-1").text("Humidity: " + humInput1 + "%")
 
+            // get one day from now
+            let card1 = $("<div>").attr("class", "card")
+            let input1 = $("<div>").attr("class", "card-body five-day")
+            let dtText1 = new Date(response.list[0].dt_txt).toLocaleDateString();
+            let dateDiv = $("<h5>").attr("class", "card-title")
+            dateDiv.text(dtText1)
+            let iconInput1 = response.list[0].weather[0].icon
+            let iconURL1 = "http://openweathermap.org/img/w/" + iconInput1 + ".png"
+            var img = $("<img>").attr("src", iconURL1);
+            let tempDiv = $("<p>").attr("class", "card-text")
+            tempDiv.append("Temperature: " + response.list[0].main.temp + " °F")
+            let humidityDiv = $("<p>").attr("class", "card-text")
+            humidityDiv.append("Humidity: " + response.list[0].main.humidity + "%")
+            input1.append(dateDiv, img, tempDiv, humidityDiv)
+            card1.append(input1)
+            $("#five-day-cards1").append(card1)
+        
             // get two days from now
-            let dtText2 = response.list[7].dt_txt;
-            let dtText2Loc = new Date(dtText2).toLocaleDateString();
-            $("#date-input-2").text(dtText2Loc)
+            let card2 = $("<div>").attr("class", "card")
+            let input2 = $("<div>").attr("class", "card-body five-day")
+            let dtText2 = new Date(response.list[7].dt_txt).toLocaleDateString();
+            let dateDiv2 = $("<h5>").attr("class", "card-title")
+            dateDiv2.text(dtText2)
             let iconInput2 = response.list[7].weather[0].icon
-            iconURL2 = "http://openweathermap.org/img/w/" + iconInput2 + ".png"
-            var img = $("<img>").attr("src", iconURL2);
-            $("#card-2").append(img)
-            let tempInput2 = response.list[7].main.temp
-            $("#temp-input-2").text("Temperature: " + tempInput2 + " °F")
-            let humInput2 = response.list[7].main.humidity
-            $("#humidity-input-2").text("Humidity: " + humInput2 + "%")
+            let iconURL2 = "http://openweathermap.org/img/w/" + iconInput2 + ".png"
+            var img2 = $("<img>").attr("src", iconURL2);
+            let tempDiv2 = $("<p>").attr("class", "card-text")
+            tempDiv2.append("Temperature: " + response.list[7].main.temp + " °F")
+            let humidityDiv2 = $("<p>").attr("class", "card-text")
+            humidityDiv2.append("Humidity: " + response.list[7].main.humidity + "%")
+            input2.append(dateDiv2, img2, tempDiv2, humidityDiv2)
+            card2.append(input2)
+            $("#five-day-cards2").append(card2)
 
             // get three days from now
-            let dtText3 = response.list[15].dt_txt;
-            let dtText3Loc = new Date(dtText3).toLocaleDateString()
-            $("#date-input-3").text(dtText3Loc)
+            let card3 = $("<div>").attr("class", "card")
+            let input3 = $("<div>").attr("class", "card-body five-day")
+            let dtText3 = new Date(response.list[15].dt_txt).toLocaleDateString();
+            let dateDiv3 = $("<h5>").attr("class", "card-title")
+            dateDiv3.text(dtText3)
             let iconInput3 = response.list[15].weather[0].icon
-            iconURL3 = "http://openweathermap.org/img/w/" + iconInput3 + ".png"
-            var img = $("<img>").attr("src", iconURL3);
-            $("#card-3").append(img)
-            let tempInput3 = response.list[15].main.temp
-            $("#temp-input-3").text("Temperature: " + tempInput3 + " °F")
-            let humInput3 = response.list[15].main.humidity
-            $("#humidity-input-3").text("Humidity: " + humInput3 + "%")
+            let iconURL3 = "http://openweathermap.org/img/w/" + iconInput3 + ".png"
+            var img3 = $("<img>").attr("src", iconURL3);
+            let tempDiv3 = $("<p>").attr("class", "card-text")
+            tempDiv3.append("Temperature: " + response.list[15].main.temp + " °F")
+            let humidityDiv3 = $("<p>").attr("class", "card-text")
+            humidityDiv3.append("Humidity: " + response.list[15].main.humidity + "%")
+            input3.append(dateDiv3, img3, tempDiv3, humidityDiv3)
+            card3.append(input3)
+            $("#five-day-cards3").append(card3)
 
             // get four days from now
-            let dtText4 = response.list[23].dt_txt;
-            let dtText4Loc = new Date(dtText4).toLocaleDateString();
-            $("#date-input-4").text(dtText4Loc)
+            let card4 = $("<div>").attr("class", "card")
+            let input4 = $("<div>").attr("class", "card-body five-day")
+            let dtText4 = new Date(response.list[23].dt_txt).toLocaleDateString();
+            let dateDiv4 = $("<h5>").attr("class", "card-title")
+            dateDiv4.text(dtText4)
             let iconInput4 = response.list[23].weather[0].icon
-            iconURL4 = "http://openweathermap.org/img/w/" + iconInput4 + ".png"
-            var img = $("<img>").attr("src", iconURL4);
-            $("#card-4").append(img)
-            let tempInput4 = response.list[23].main.temp
-            $("#temp-input-4").text("Temperature: " + tempInput4 + " °F")
-            let humInput4 = response.list[23].main.humidity
-            $("#humidity-input-4").text("Humidity: " + humInput4 + "%")
+            let iconURL4 = "http://openweathermap.org/img/w/" + iconInput4 + ".png"
+            var img4 = $("<img>").attr("src", iconURL4);
+            let tempDiv4 = $("<p>").attr("class", "card-text")
+            tempDiv4.append("Temperature: " + response.list[23].main.temp + " °F")
+            let humidityDiv4 = $("<p>").attr("class", "card-text")
+            humidityDiv4.append("Humidity: " + response.list[23].main.humidity + "%")
+            input4.append(dateDiv4, img4, tempDiv4, humidityDiv4)
+            card4.append(input4)
+            $("#five-day-cards4").append(card4)
 
             // get five days from now
-            let dtText5 = response.list[31].dt_txt;
-            let dtText5Loc = new Date(dtText5).toLocaleDateString()
-            $("#date-input-5").text(dtText5Loc)
+            let card5 = $("<div>").attr("class", "card")
+            let input5 = $("<div>").attr("class", "card-body five-day")
+            let dtText5 = new Date(response.list[31].dt_txt).toLocaleDateString();
+            let dateDiv5 = $("<h5>").attr("class", "card-title")
+            dateDiv5.text(dtText5)
             let iconInput5 = response.list[31].weather[0].icon
-            iconURL5 = "http://openweathermap.org/img/w/" + iconInput5 + ".png"
-            var img = $("<img>").attr("src", iconURL5);
-            $("#card-5").append(img)
-            let tempInput5 = response.list[31].main.temp
-            $("#temp-input-5").text("Temperature: " + tempInput5 + " °F")
-            let humInput5 = response.list[31].main.humidity
-            $("#humidity-input-5").text("Humidity: " + humInput5 + "%")
+            let iconURL5 = "http://openweathermap.org/img/w/" + iconInput5 + ".png"
+            var img5 = $("<img>").attr("src", iconURL5);
+            let tempDiv5 = $("<p>").attr("class", "card-text")
+            tempDiv5.append("Temperature: " + response.list[31].main.temp + " °F")
+            let humidityDiv5 = $("<p>").attr("class", "card-text")
+            humidityDiv5.append("Humidity: " + response.list[31].main.humidity + "%")
+            input5.append(dateDiv5, img5, tempDiv5, humidityDiv5)
+            card5.append(input5)
+            $("#five-day-cards5").append(card5)
         })
     })
 
