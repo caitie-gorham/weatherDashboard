@@ -16,7 +16,7 @@ This weather dashboard allows a user to search a city and get back the current w
 
 You can find the deployed webpage here: https://caitie-gorham.github.io/weatherDashboard/#
 
-You can find the GitHub repo here: https://github.com/caitlin-emily/weatherDashboard
+You can find the GitHub repo here: https://github.com/caitie-gorham/weatherDashboard
 
 ## Details
 
